@@ -5,5 +5,5 @@ import (
 )
 
 type Twilio interface {
-	Autopilot(assistantSid string) autopilot.Autopilot
+	Autopilot(botSid string) autopilot.Autopilot
 }
