@@ -1,5 +1,11 @@
 package autopilot
 
+import (
+	"github.com/expproletariy/twililo/autopilot/fieldtypes"
+	"github.com/expproletariy/twililo/autopilot/queries"
+)
+
 type Autopilot interface {
-	Query() Query
+	Queries() queries.Query
+	FieldTypes() fieldtypes.FieldType
 }
