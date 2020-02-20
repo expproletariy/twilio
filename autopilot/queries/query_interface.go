@@ -6,9 +6,9 @@ import (
 )
 
 type Query interface {
-	Create(arguments types.QueryCreateArguments) (types.QueryResult, error)
-	GetBySid(querySid string) (types.QueryResult, error)
-	Get(meta types.Meta) ([]types.QueryResult, types.Meta, error)
-	Update(querySid string, status enums.QueryStatus) (types.QueryResult, error)
+	Create(arguments types.QueryCreateArguments) (types.QueryResponse, error)
+	GetBySid(querySid string) (types.QueryResponse, error)
+	Get(meta types.Meta) (types.QueryPaginationResponse, error)
+	Update(querySid string, status enums.QueryStatus) (types.QueryResponse, error)
 	Delete(querySid string) error
 }

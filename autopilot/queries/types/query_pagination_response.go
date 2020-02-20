@@ -1,6 +1,6 @@
 package types
 
-type queryPaginationResponse struct {
-	Meta    Meta          `json:"meta"`
-	Queries []QueryResult `json:"queries"`
+type QueryPaginationResponse struct {
+	Meta    Meta            `json:"meta"`
+	Queries []QueryResponse `json:"queries"`
 }

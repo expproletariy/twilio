@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type queryResponse struct {
+type QueryResponse struct {
 	AssistantSid  string            `json:"assistant_sid"`
 	SampleSid     string            `json:"sample_sid"`
 	DialogueSid   string            `json:"dialogue_sid"`
