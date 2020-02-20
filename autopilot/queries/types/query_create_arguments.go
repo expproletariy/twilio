@@ -1,8 +1,10 @@
 package types
 
-import "github.com/expproletariy/twililo/autopilot/queries/enums"
+import (
+	enums "github.com/expproletariy/twililo/autopilot/enums"
+)
 
 type QueryCreateArguments struct {
-	Query    string              `json:"queries"`
-	Language enums.QueryLanguage `json:"language"`
+	Query    string         `json:"queries"`
+	Language enums.Language `json:"language"`
 }
