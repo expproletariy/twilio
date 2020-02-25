@@ -1,8 +1,8 @@
 package types
 
 import (
-	autopilotEnums "github.com/expproletariy/twililo/autopilot/enums"
 	"github.com/expproletariy/twililo/autopilot/queries/enums"
+	autopilotEnums "github.com/expproletariy/twililo/common/enums"
 	"time"
 )
 
