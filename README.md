@@ -1,4 +1,3 @@
 # twililo
 ## Twilio api for Golang
-It is a not full api because project in development mod now. 
-Do not use in the production!
+It is a not full api now. Do not use in the production! Project under development!
