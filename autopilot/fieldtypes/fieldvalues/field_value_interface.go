@@ -1,6 +1,6 @@
 package fieldvalues
 
-import "github.com/expproletariy/twililo/autopilot/fieldtypes/fieldvalues/types"
+import "github.com/expproletariy/twilio/autopilot/fieldtypes/fieldvalues/types"
 
 type FieldValue interface {
 	Create(arguments types.FieldValueCreateArguments) (types.FieldValueResponse, error)

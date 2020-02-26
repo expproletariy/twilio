@@ -1,7 +1,7 @@
 package twilio
 
 import (
-	"github.com/expproletariy/twililo/autopilot"
+	"github.com/expproletariy/twilio/autopilot"
 )
 
 type Twilio interface {

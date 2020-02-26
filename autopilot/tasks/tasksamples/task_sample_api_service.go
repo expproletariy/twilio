@@ -1,8 +1,8 @@
 package tasksamples
 
 import (
-	"github.com/expproletariy/twililo/autopilot/tasks/tasksamples/types"
-	commontypes "github.com/expproletariy/twililo/common/types"
+	"github.com/expproletariy/twilio/autopilot/tasks/tasksamples/types"
+	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
 type taskSampleApiService struct {

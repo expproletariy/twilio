@@ -1,9 +1,9 @@
 package tasks
 
 import (
-	"github.com/expproletariy/twililo/autopilot/tasks/taskfields"
-	"github.com/expproletariy/twililo/autopilot/tasks/tasksamples"
-	"github.com/expproletariy/twililo/autopilot/tasks/types"
+	"github.com/expproletariy/twilio/autopilot/tasks/taskfields"
+	"github.com/expproletariy/twilio/autopilot/tasks/tasksamples"
+	"github.com/expproletariy/twilio/autopilot/tasks/types"
 )
 
 type Task interface {

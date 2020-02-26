@@ -1,9 +1,9 @@
 package fieldtypes
 
 import (
-	"github.com/expproletariy/twililo/autopilot/fieldtypes/fieldvalues"
-	"github.com/expproletariy/twililo/autopilot/fieldtypes/types"
-	commontypes "github.com/expproletariy/twililo/common/types"
+	"github.com/expproletariy/twilio/autopilot/fieldtypes/fieldvalues"
+	"github.com/expproletariy/twilio/autopilot/fieldtypes/types"
+	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
 type fieldTypeApiService struct {

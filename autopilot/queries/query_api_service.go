@@ -1,9 +1,9 @@
 package queries
 
 import (
-	"github.com/expproletariy/twililo/autopilot/queries/enums"
-	"github.com/expproletariy/twililo/autopilot/queries/types"
-	commontypes "github.com/expproletariy/twililo/common/types"
+	"github.com/expproletariy/twilio/autopilot/queries/enums"
+	"github.com/expproletariy/twilio/autopilot/queries/types"
+	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
 type queryApiService struct {

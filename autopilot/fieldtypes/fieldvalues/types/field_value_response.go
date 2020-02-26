@@ -1,7 +1,7 @@
 package types
 
 import (
-	commonenums "github.com/expproletariy/twililo/common/enums"
+	commonenums "github.com/expproletariy/twilio/common/enums"
 	"time"
 )
 

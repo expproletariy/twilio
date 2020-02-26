@@ -1,8 +1,8 @@
 package twilio
 
 import (
-	"github.com/expproletariy/twililo/autopilot"
-	commontypes "github.com/expproletariy/twililo/common/types"
+	"github.com/expproletariy/twilio/autopilot"
+	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
 type twilioApiService struct {

@@ -1,8 +1,8 @@
 package fieldtypes
 
 import (
-	"github.com/expproletariy/twililo/autopilot/fieldtypes/fieldvalues"
-	"github.com/expproletariy/twililo/autopilot/fieldtypes/types"
+	"github.com/expproletariy/twilio/autopilot/fieldtypes/fieldvalues"
+	"github.com/expproletariy/twilio/autopilot/fieldtypes/types"
 )
 
 type FieldType interface {

@@ -1,7 +1,7 @@
 package types
 
 import (
-	enums "github.com/expproletariy/twililo/common/enums"
+	enums "github.com/expproletariy/twilio/common/enums"
 )
 
 type QueryCreateArguments struct {

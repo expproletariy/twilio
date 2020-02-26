@@ -1,6 +1,6 @@
 package taskfields
 
-import "github.com/expproletariy/twililo/autopilot/tasks/taskfields/types"
+import "github.com/expproletariy/twilio/autopilot/tasks/taskfields/types"
 
 type TaskField interface {
 	Create(arguments types.TaskFieldCreateArguments) (types.TaskFieldResponse, error)

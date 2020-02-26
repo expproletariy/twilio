@@ -1,6 +1,6 @@
 package tasksamples
 
-import "github.com/expproletariy/twililo/autopilot/tasks/tasksamples/types"
+import "github.com/expproletariy/twilio/autopilot/tasks/tasksamples/types"
 
 type TaskSample interface {
 	Create(arguments types.TaskSampleCreateArguments) (types.TaskSampleResponse, error)

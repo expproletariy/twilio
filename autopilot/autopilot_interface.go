@@ -1,9 +1,9 @@
 package autopilot
 
 import (
-	"github.com/expproletariy/twililo/autopilot/fieldtypes"
-	"github.com/expproletariy/twililo/autopilot/queries"
-	"github.com/expproletariy/twililo/autopilot/tasks"
+	"github.com/expproletariy/twilio/autopilot/fieldtypes"
+	"github.com/expproletariy/twilio/autopilot/queries"
+	"github.com/expproletariy/twilio/autopilot/tasks"
 )
 
 type Autopilot interface {

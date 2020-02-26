@@ -1,8 +1,8 @@
 package queries
 
 import (
-	"github.com/expproletariy/twililo/autopilot/queries/enums"
-	"github.com/expproletariy/twililo/autopilot/queries/types"
+	"github.com/expproletariy/twilio/autopilot/queries/enums"
+	"github.com/expproletariy/twilio/autopilot/queries/types"
 )
 
 type Query interface {

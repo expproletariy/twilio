@@ -1,6 +1,6 @@
 package types
 
-import "github.com/expproletariy/twililo/common/enums"
+import "github.com/expproletariy/twilio/common/enums"
 
 type TaskSampleCreateArguments struct {
 	Language   enums.Language `json:"language"`
