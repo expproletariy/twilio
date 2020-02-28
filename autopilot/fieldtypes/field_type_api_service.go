@@ -3,6 +3,7 @@ package fieldtypes
 import (
 	"github.com/expproletariy/twilio/autopilot/fieldtypes/fieldvalues"
 	"github.com/expproletariy/twilio/autopilot/fieldtypes/types"
+	"github.com/expproletariy/twilio/common/errors"
 	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
@@ -30,22 +31,22 @@ func (f fieldTypeApiService) FieldValues(fieldTypeSid string) fieldvalues.FieldV
 	return fieldvalues.New(config)
 }
 
-func (f fieldTypeApiService) Create(arguments types.FiledTypeCreateArguments) (types.FieldTypeResponse, error) {
+func (f fieldTypeApiService) Create(arguments types.FiledTypeCreateArguments) (types.FieldTypeResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (f fieldTypeApiService) GetBySid(fieldTypeSid string) (types.FieldTypeResponse, error) {
+func (f fieldTypeApiService) GetBySid(fieldTypeSid string) (types.FieldTypeResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (f fieldTypeApiService) Get(meta types.Meta) (types.FieldTypePaginationResponse, error) {
+func (f fieldTypeApiService) Get(meta types.Meta) (types.FieldTypePaginationResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (f fieldTypeApiService) Update(arguments types.FieldTypeUpdateArguments) (types.FieldTypeResponse, error) {
+func (f fieldTypeApiService) Update(arguments types.FieldTypeUpdateArguments) (types.FieldTypeResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (f fieldTypeApiService) Delete(fieldTypeSid string) error {
+func (f fieldTypeApiService) Delete(fieldTypeSid string) errors.HttpError {
 	panic("implement me")
 }

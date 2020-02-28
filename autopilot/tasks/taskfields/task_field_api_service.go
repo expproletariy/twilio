@@ -2,6 +2,7 @@ package taskfields
 
 import (
 	"github.com/expproletariy/twilio/autopilot/tasks/taskfields/types"
+	"github.com/expproletariy/twilio/common/errors"
 	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
@@ -18,18 +19,18 @@ func newTaskFieldApiService(config commontypes.Config) *taskFieldApiService {
 	return &taskFieldApiService{config: config}
 }
 
-func (t taskFieldApiService) Create(arguments types.TaskFieldCreateArguments) (types.TaskFieldResponse, error) {
+func (t taskFieldApiService) Create(arguments types.TaskFieldCreateArguments) (types.TaskFieldResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (t taskFieldApiService) GetBySid(taskFieldSid string) (types.TaskFieldResponse, error) {
+func (t taskFieldApiService) GetBySid(taskFieldSid string) (types.TaskFieldResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (t taskFieldApiService) Get(meta types.Meta) (types.TaskFieldPaginationResponse, error) {
+func (t taskFieldApiService) Get(meta types.Meta) (types.TaskFieldPaginationResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (t taskFieldApiService) Delete(taskFieldSid string) error {
+func (t taskFieldApiService) Delete(taskFieldSid string) errors.HttpError {
 	panic("implement me")
 }

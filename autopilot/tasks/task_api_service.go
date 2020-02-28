@@ -4,6 +4,7 @@ import (
 	"github.com/expproletariy/twilio/autopilot/tasks/taskfields"
 	"github.com/expproletariy/twilio/autopilot/tasks/tasksamples"
 	"github.com/expproletariy/twilio/autopilot/tasks/types"
+	"github.com/expproletariy/twilio/common/errors"
 	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
@@ -42,22 +43,22 @@ func (t taskApiService) TaskFields(taskSid string) taskfields.TaskField {
 	return taskfields.New(config)
 }
 
-func (t taskApiService) Create(arguments types.TaskCreateArguments) (types.TaskResponse, error) {
+func (t taskApiService) Create(arguments types.TaskCreateArguments) (types.TaskResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (t taskApiService) GetBySid(taskSid string) (types.TaskResponse, error) {
+func (t taskApiService) GetBySid(taskSid string) (types.TaskResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (t taskApiService) Get(meta types.Meta) (types.TaskPaginationResponse, error) {
+func (t taskApiService) Get(meta types.Meta) (types.TaskPaginationResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (t taskApiService) Update(arguments types.TaskUpdateArguments) (types.TaskResponse, error) {
+func (t taskApiService) Update(arguments types.TaskUpdateArguments) (types.TaskResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (t taskApiService) Delete(taskSid string) error {
+func (t taskApiService) Delete(taskSid string) errors.HttpError {
 	panic("implement me")
 }

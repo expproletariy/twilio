@@ -2,6 +2,7 @@ package fieldvalues
 
 import (
 	"github.com/expproletariy/twilio/autopilot/fieldtypes/fieldvalues/types"
+	"github.com/expproletariy/twilio/common/errors"
 	commontypes "github.com/expproletariy/twilio/common/types"
 )
 
@@ -18,18 +19,18 @@ func newFieldValueApiService(config commontypes.Config) FieldValue {
 	return &fieldValueApiService{config: config}
 }
 
-func (f fieldValueApiService) Create(arguments types.FieldValueCreateArguments) (types.FieldValueResponse, error) {
+func (f fieldValueApiService) Create(arguments types.FieldValueCreateArguments) (types.FieldValueResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (f fieldValueApiService) GetBySid(fieldValueSid string) (types.FieldValueResponse, error) {
+func (f fieldValueApiService) GetBySid(fieldValueSid string) (types.FieldValueResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (f fieldValueApiService) Get(meta types.Meta) (types.FieldValuePaginationResponse, error) {
+func (f fieldValueApiService) Get(meta types.Meta) (types.FieldValuePaginationResponse, errors.HttpError) {
 	panic("implement me")
 }
 
-func (f fieldValueApiService) Delete(fieldValueSid string) error {
+func (f fieldValueApiService) Delete(fieldValueSid string) errors.HttpError {
 	panic("implement me")
 }
