@@ -14,6 +14,10 @@ func NewHttpErrorNotFound() HttpError {
 	return &httpError{msg: "can not found requested resource", status: 404}
 }
 
+func NewHttpErrorNotFoundWithResource(resource string) HttpError {
+	return &httpError{msg: "can not found requested resource", status: 404, resource: resource}
+}
+
 func NewHttpErrorUnauthorized() HttpError {
 	return &httpError{msg: "unauthorized user", status: 401}
 }

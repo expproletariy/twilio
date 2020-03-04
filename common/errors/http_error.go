@@ -24,6 +24,10 @@ func (e httpError) Error() string {
 	return e.msg
 }
 
+func (e httpError) FullError() string {
+	return e.msg + ": " + e.resource
+}
+
 func (e httpError) Status() int {
 	return e.status
 }
