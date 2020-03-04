@@ -2,6 +2,7 @@ package fieldtypes
 
 import (
 	"encoding/json"
+	"github.com/expproletariy/twilio/autopilot/fieldtypes/enums"
 	"github.com/expproletariy/twilio/autopilot/fieldtypes/fieldvalues"
 	"github.com/expproletariy/twilio/autopilot/fieldtypes/types"
 	"github.com/expproletariy/twilio/common/errors"
@@ -36,6 +37,11 @@ func (f fieldTypeApiService) FieldValues(fieldTypeSid string) fieldvalues.FieldV
 }
 
 func (f fieldTypeApiService) Create(arguments types.FiledTypeCreateArguments) (types.FieldTypeResponse, errors.HttpError) {
+
+	if enums.IsBuildInFieldType(arguments.UniqueName) {
+		return types.FieldTypeResponse{}, errors.NewHttpErrorBuildInType()
+	}
+
 	params := url.Values{}
 	params.Set("UniqueName", arguments.UniqueName)
 
