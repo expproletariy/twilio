@@ -27,6 +27,9 @@ func (f fieldValueApiService) Create(arguments types.FieldValueCreateArguments) 
 	params := url.Values{}
 	params.Set("Value", arguments.Value)
 	params.Set("Language", arguments.Language.String())
+	if len(arguments.SynonymOf) != 0 {
+		params.Set("SynonymOf", arguments.SynonymOf)
+	}
 
 	req, err := http.NewRequest("POST", f.config.BaseApiUrl, strings.NewReader(params.Encode()))
 	if err != nil {
