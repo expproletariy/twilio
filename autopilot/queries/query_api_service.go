@@ -55,7 +55,7 @@ func (q queryApiService) Create(arguments types.QueryCreateArguments) (types.Que
 }
 
 func (q queryApiService) GetBySid(querySid string) (types.QueryResponse, errors.HttpError) {
-	requestUrl := t.config.BaseApiUrl + "/" + querySid
+	requestUrl := q.config.BaseApiUrl + "/" + querySid
 	req, err := http.NewRequest("GET", requestUrl, nil)
 	if err != nil {
 		return types.QueryResponse{}, errors.NewHttpError(err)
