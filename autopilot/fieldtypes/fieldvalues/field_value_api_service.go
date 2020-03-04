@@ -19,7 +19,7 @@ func New(config commontypes.Config) FieldValue {
 }
 
 func newFieldValueApiService(config commontypes.Config) FieldValue {
-	config.BaseApiUrl = "/FieldValues"
+	config.BaseApiUrl += "/FieldValues"
 	return &fieldValueApiService{config: config}
 }
 

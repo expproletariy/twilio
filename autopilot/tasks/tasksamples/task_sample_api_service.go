@@ -19,7 +19,7 @@ func New(config commontypes.Config) TaskSample {
 }
 
 func newTaskSampleApiService(config commontypes.Config) TaskSample {
-	config.BaseApiUrl = "/Samples"
+	config.BaseApiUrl += "/Samples"
 	return &taskSampleApiService{config: config}
 }
 
