@@ -40,7 +40,7 @@ func (f fieldValueApiService) Create(arguments types.FieldValueCreateArguments) 
 		return types.FieldValueResponse{}, errors.NewHttpError(err)
 	}
 	if res.StatusCode != http.StatusCreated {
-		return types.FieldValueResponse{}, errors.NewHttpErrorNotCreated()
+		return types.FieldValueResponse{}, errors.NewHttpErrorNotCreatedWithResource(f.config.BaseApiUrl + ": " + params.Encode())
 	}
 	defer res.Body.Close()
 

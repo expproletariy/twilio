@@ -64,7 +64,7 @@ func (t taskApiService) Create(arguments types.TaskCreateArguments) (types.TaskR
 		return types.TaskResponse{}, errors.NewHttpError(err)
 	}
 	if res.StatusCode != http.StatusCreated {
-		return types.TaskResponse{}, errors.NewHttpErrorNotCreated()
+		return types.TaskResponse{}, errors.NewHttpErrorNotCreatedWithResource(t.config.BaseApiUrl + ": " + params.Encode())
 	}
 	defer res.Body.Close()
 

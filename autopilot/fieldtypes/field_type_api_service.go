@@ -51,7 +51,7 @@ func (f fieldTypeApiService) Create(arguments types.FiledTypeCreateArguments) (t
 		return types.FieldTypeResponse{}, errors.NewHttpError(err)
 	}
 	if res.StatusCode != http.StatusCreated {
-		return types.FieldTypeResponse{}, errors.NewHttpErrorNotCreated()
+		return types.FieldTypeResponse{}, errors.NewHttpErrorNotCreatedWithResource(f.config.BaseApiUrl + ": " + params.Encode())
 	}
 	defer res.Body.Close()
 

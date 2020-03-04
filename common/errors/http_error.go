@@ -15,8 +15,9 @@ type HttpError interface {
 }
 
 type httpError struct {
-	msg    string
-	status int
+	msg      string
+	status   int
+	resource string
 }
 
 func (e httpError) Error() string {

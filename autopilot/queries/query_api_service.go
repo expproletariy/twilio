@@ -41,7 +41,7 @@ func (q queryApiService) Create(arguments types.QueryCreateArguments) (types.Que
 		return types.QueryResponse{}, errors.NewHttpError(err)
 	}
 	if res.StatusCode != http.StatusCreated {
-		return types.QueryResponse{}, errors.NewHttpErrorNotCreated()
+		return types.QueryResponse{}, errors.NewHttpErrorNotCreatedWithResource(q.config.BaseApiUrl + ": " + params.Encode())
 	}
 	defer res.Body.Close()
 

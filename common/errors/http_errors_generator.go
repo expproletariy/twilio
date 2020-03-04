@@ -21,3 +21,7 @@ func NewHttpErrorUnauthorized() HttpError {
 func NewHttpErrorNotCreated() HttpError {
 	return &httpError{msg: "can not create resource", status: http.StatusBadRequest}
 }
+
+func NewHttpErrorNotCreatedWithResource(resource string) HttpError {
+	return &httpError{msg: "can not create resource", status: http.StatusBadRequest, resource: resource}
+}

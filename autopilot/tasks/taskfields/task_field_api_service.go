@@ -40,7 +40,7 @@ func (t taskFieldApiService) Create(arguments types.TaskFieldCreateArguments) (t
 		return types.TaskFieldResponse{}, errors.NewHttpError(err)
 	}
 	if res.StatusCode != http.StatusCreated {
-		return types.TaskFieldResponse{}, errors.NewHttpErrorNotCreated()
+		return types.TaskFieldResponse{}, errors.NewHttpErrorNotCreatedWithResource(t.config.BaseApiUrl + ": " + params.Encode())
 	}
 	defer res.Body.Close()
 
