@@ -14,6 +14,8 @@ func New(config commontypes.Config) Twilio {
 }
 
 func newTwilioApiService(config commontypes.Config) Twilio {
+	config.BaseApiUrl = "https://autopilot.twilio.com"
+	config.ApiVersion = "v1"
 	config.BaseApiUrl += "/" + config.ApiVersion
 	return &twilioApiService{config: config}
 }

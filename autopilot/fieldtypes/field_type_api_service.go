@@ -1,10 +1,14 @@
 package fieldtypes
 
 import (
+	"encoding/json"
 	"github.com/expproletariy/twilio/autopilot/fieldtypes/fieldvalues"
 	"github.com/expproletariy/twilio/autopilot/fieldtypes/types"
 	"github.com/expproletariy/twilio/common/errors"
 	commontypes "github.com/expproletariy/twilio/common/types"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 type fieldTypeApiService struct {
@@ -32,15 +36,93 @@ func (f fieldTypeApiService) FieldValues(fieldTypeSid string) fieldvalues.FieldV
 }
 
 func (f fieldTypeApiService) Create(arguments types.FiledTypeCreateArguments) (types.FieldTypeResponse, errors.HttpError) {
-	panic("implement me")
+	params := url.Values{}
+	params.Set("UniqueName", arguments.UniqueName)
+
+	req, err := http.NewRequest("POST", f.config.BaseApiUrl, strings.NewReader(params.Encode()))
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(f.config.TwilioApiKeySid, f.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := f.config.Client.Do(req)
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+	if res.StatusCode != http.StatusCreated {
+		return types.FieldTypeResponse{}, errors.NewHttpErrorNotCreated()
+	}
+	defer res.Body.Close()
+
+	body := types.FieldTypeResponse{}
+	err = json.NewDecoder(res.Body).Decode(&body)
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+
+	return body, nil
 }
 
 func (f fieldTypeApiService) GetBySid(fieldTypeSid string) (types.FieldTypeResponse, errors.HttpError) {
-	panic("implement me")
+	requestUrl := f.config.BaseApiUrl + "/" + fieldTypeSid
+	req, err := http.NewRequest("GET", requestUrl, nil)
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(f.config.TwilioApiKeySid, f.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := f.config.Client.Do(req)
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusUnauthorized {
+		return types.FieldTypeResponse{}, errors.NewHttpErrorUnauthorized()
+	}
+
+	if res.StatusCode == http.StatusNotFound {
+		return types.FieldTypeResponse{}, errors.NewHttpErrorNotFound()
+	}
+
+	body := types.FieldTypeResponse{}
+	err = json.NewDecoder(res.Body).Decode(&body)
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+	return body, nil
 }
 
 func (f fieldTypeApiService) Get(meta types.Meta) (types.FieldTypePaginationResponse, errors.HttpError) {
-	panic("implement me")
+	req, err := http.NewRequest("GET", meta.NextPageURL, nil)
+	if err != nil {
+		return types.FieldTypePaginationResponse{}, errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(f.config.TwilioApiKeySid, f.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := f.config.Client.Do(req)
+	if err != nil {
+		return types.FieldTypePaginationResponse{}, errors.NewHttpError(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusUnauthorized {
+		return types.FieldTypePaginationResponse{}, errors.NewHttpErrorUnauthorized()
+	}
+
+	if res.StatusCode == http.StatusNotFound {
+		return types.FieldTypePaginationResponse{}, errors.NewHttpErrorNotFound()
+	}
+
+	body := types.FieldTypePaginationResponse{}
+	err = json.NewDecoder(res.Body).Decode(&body)
+	if err != nil {
+		return types.FieldTypePaginationResponse{}, errors.NewHttpError(err)
+	}
+	return body, nil
 }
 
 func (f fieldTypeApiService) Update(arguments types.FieldTypeUpdateArguments) (types.FieldTypeResponse, errors.HttpError) {
