@@ -109,6 +109,9 @@ func (t taskApiService) GetBySid(taskSid string) (types.TaskResponse, errors.Htt
 }
 
 func (t taskApiService) Get(meta types.Meta) (types.TaskPaginationResponse, errors.HttpError) {
+	if len(meta.NextPageURL) == 0 {
+		meta.NextPageURL = t.config.BaseApiUrl
+	}
 	req, err := http.NewRequest("GET", meta.NextPageURL, nil)
 	if err != nil {
 		return types.TaskPaginationResponse{}, errors.NewHttpError(err)

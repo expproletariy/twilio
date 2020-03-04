@@ -86,6 +86,9 @@ func (q queryApiService) GetBySid(querySid string) (types.QueryResponse, errors.
 }
 
 func (q queryApiService) Get(meta types.Meta) (types.QueryPaginationResponse, errors.HttpError) {
+	if len(meta.NextPageURL) == 0 {
+		meta.NextPageURL = q.config.BaseApiUrl
+	}
 	req, err := http.NewRequest("GET", meta.NextPageURL, nil)
 	if err != nil {
 		return types.QueryPaginationResponse{}, errors.NewHttpError(err)

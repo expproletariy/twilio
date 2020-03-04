@@ -54,6 +54,9 @@ func (t taskSampleApiService) Create(arguments types.TaskSampleCreateArguments) 
 }
 
 func (t taskSampleApiService) Get(meta types.Meta) (types.TaskSamplePaginationResponse, errors.HttpError) {
+	if len(meta.NextPageURL) == 0 {
+		meta.NextPageURL = t.config.BaseApiUrl
+	}
 	req, err := http.NewRequest("GET", meta.NextPageURL, nil)
 	if err != nil {
 		return types.TaskSamplePaginationResponse{}, errors.NewHttpError(err)

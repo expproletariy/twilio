@@ -96,6 +96,9 @@ func (f fieldTypeApiService) GetBySid(fieldTypeSid string) (types.FieldTypeRespo
 }
 
 func (f fieldTypeApiService) Get(meta types.Meta) (types.FieldTypePaginationResponse, errors.HttpError) {
+	if len(meta.NextPageURL) == 0 {
+		meta.NextPageURL = f.config.BaseApiUrl
+	}
 	req, err := http.NewRequest("GET", meta.NextPageURL, nil)
 	if err != nil {
 		return types.FieldTypePaginationResponse{}, errors.NewHttpError(err)
