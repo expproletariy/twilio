@@ -3,6 +3,7 @@ package errors
 type HttpErrorContainer interface {
 	error
 	Status() int
+	FullError() string
 }
 
 type HttpErrorComparator interface {
