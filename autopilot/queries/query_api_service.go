@@ -2,7 +2,6 @@ package queries
 
 import (
 	"encoding/json"
-	"github.com/expproletariy/twilio/autopilot/queries/enums"
 	"github.com/expproletariy/twilio/autopilot/queries/types"
 	"github.com/expproletariy/twilio/common/errors"
 	commontypes "github.com/expproletariy/twilio/common/types"
@@ -118,10 +117,65 @@ func (q queryApiService) Get(meta types.Meta) (types.QueryPaginationResponse, er
 	return body, nil
 }
 
-func (q queryApiService) Update(querySid string, status enums.QueryStatus) (types.QueryResponse, errors.HttpError) {
-	panic("implement me")
+func (q queryApiService) Update(arguments types.QueryUpdateArguments) (types.QueryResponse, errors.HttpError) {
+	params := url.Values{}
+	resource := q.config.BaseApiUrl + "/" + arguments.Sid
+
+	if len(arguments.SampleSid) != 0 {
+		params.Set("SampleSid", arguments.SampleSid)
+	}
+
+	if len(arguments.Status.String()) != 0 {
+		params.Set("Status", arguments.Status.String())
+	}
+
+	req, err := http.NewRequest("POST", resource, strings.NewReader(params.Encode()))
+	if err != nil {
+		return types.QueryResponse{}, errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(q.config.TwilioApiKeySid, q.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := q.config.Client.Do(req)
+	if err != nil {
+		return types.QueryResponse{}, errors.NewHttpError(err)
+	}
+	if res.StatusCode != http.StatusOK {
+		return types.QueryResponse{}, errors.NewHttpErrorNotUpdatedWithResource(q.config.BaseApiUrl + ": " + params.Encode())
+	}
+	defer res.Body.Close()
+
+	body := types.QueryResponse{}
+	err = json.NewDecoder(res.Body).Decode(&body)
+	if err != nil {
+		return types.QueryResponse{}, errors.NewHttpError(err)
+	}
+
+	return body, nil
 }
 
 func (q queryApiService) Delete(querySid string) errors.HttpError {
-	panic("implement me")
+	requestUrl := q.config.BaseApiUrl + "/" + querySid
+	req, err := http.NewRequest("DELETE", requestUrl, nil)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(q.config.TwilioApiKeySid, q.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := q.config.Client.Do(req)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusUnauthorized {
+		return errors.NewHttpErrorUnauthorized()
+	}
+
+	if res.StatusCode == http.StatusNotFound {
+		return errors.NewHttpErrorNotFound()
+	}
+
+	return nil
 }

@@ -121,5 +121,27 @@ func (f fieldValueApiService) Get(meta types.Meta) (types.FieldValuePaginationRe
 }
 
 func (f fieldValueApiService) Delete(fieldValueSid string) errors.HttpError {
-	panic("implement me")
+	requestUrl := f.config.BaseApiUrl + "/" + fieldValueSid
+	req, err := http.NewRequest("DELETE", requestUrl, nil)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(f.config.TwilioApiKeySid, f.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := f.config.Client.Do(req)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusUnauthorized {
+		return errors.NewHttpErrorUnauthorized()
+	}
+
+	if res.StatusCode == http.StatusNotFound {
+		return errors.NewHttpErrorNotFound()
+	}
+
+	return nil
 }

@@ -45,6 +45,10 @@ func (f fieldTypeApiService) Create(arguments types.FiledTypeCreateArguments) (t
 	params := url.Values{}
 	params.Set("UniqueName", arguments.UniqueName)
 
+	if len(arguments.FriendlyName) != 0 {
+		params.Set("FriendlyName", arguments.FriendlyName)
+	}
+
 	req, err := http.NewRequest("POST", f.config.BaseApiUrl, strings.NewReader(params.Encode()))
 	if err != nil {
 		return types.FieldTypeResponse{}, errors.NewHttpError(err)
@@ -135,9 +139,66 @@ func (f fieldTypeApiService) Get(meta types.Meta) (types.FieldTypePaginationResp
 }
 
 func (f fieldTypeApiService) Update(arguments types.FieldTypeUpdateArguments) (types.FieldTypeResponse, errors.HttpError) {
-	panic("implement me")
+	params := url.Values{}
+	resource := f.config.BaseApiUrl + "/"
+
+	if len(arguments.Sid) != 0 {
+		resource += resource + arguments.Sid
+	} else {
+		resource += resource + arguments.UniqueName
+	}
+
+	if len(arguments.FriendlyName) != 0 {
+		params.Set("FriendlyName", arguments.FriendlyName)
+	}
+
+	req, err := http.NewRequest("POST", resource, strings.NewReader(params.Encode()))
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(f.config.TwilioApiKeySid, f.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := f.config.Client.Do(req)
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+	if res.StatusCode != http.StatusOK {
+		return types.FieldTypeResponse{}, errors.NewHttpErrorNotUpdatedWithResource(f.config.BaseApiUrl + ": " + params.Encode())
+	}
+	defer res.Body.Close()
+
+	body := types.FieldTypeResponse{}
+	err = json.NewDecoder(res.Body).Decode(&body)
+	if err != nil {
+		return types.FieldTypeResponse{}, errors.NewHttpError(err)
+	}
+
+	return body, nil
 }
 
 func (f fieldTypeApiService) Delete(fieldTypeSid string) errors.HttpError {
-	panic("implement me")
+	requestUrl := f.config.BaseApiUrl + "/" + fieldTypeSid
+	req, err := http.NewRequest("DELETE", requestUrl, nil)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(f.config.TwilioApiKeySid, f.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := f.config.Client.Do(req)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusUnauthorized {
+		return errors.NewHttpErrorUnauthorized()
+	}
+
+	if res.StatusCode == http.StatusNotFound {
+		return errors.NewHttpErrorNotFound()
+	}
+
+	return nil
 }

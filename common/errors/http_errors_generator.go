@@ -30,6 +30,14 @@ func NewHttpErrorNotCreatedWithResource(resource string) HttpError {
 	return &httpError{msg: "can not create resource", status: http.StatusBadRequest, resource: resource}
 }
 
+func NewHttpErrorNotUpdated() HttpError {
+	return &httpError{msg: "can not update resource", status: http.StatusBadRequest}
+}
+
+func NewHttpErrorNotUpdatedWithResource(resource string) HttpError {
+	return &httpError{msg: "can not update resource", status: http.StatusBadRequest, resource: resource}
+}
+
 func NewHttpErrorBuildInType() HttpError {
 	return &httpError{msg: "can not create build in type", status: 403}
 }

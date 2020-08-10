@@ -118,5 +118,27 @@ func (t taskFieldApiService) Get(meta types.Meta) (types.TaskFieldPaginationResp
 }
 
 func (t taskFieldApiService) Delete(taskFieldSid string) errors.HttpError {
-	panic("implement me")
+	requestUrl := t.config.BaseApiUrl + "/" + taskFieldSid
+	req, err := http.NewRequest("DELETE", requestUrl, nil)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(t.config.TwilioApiKeySid, t.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := t.config.Client.Do(req)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusUnauthorized {
+		return errors.NewHttpErrorUnauthorized()
+	}
+
+	if res.StatusCode == http.StatusNotFound {
+		return errors.NewHttpErrorNotFound()
+	}
+
+	return nil
 }

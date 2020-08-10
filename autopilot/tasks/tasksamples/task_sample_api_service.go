@@ -122,5 +122,27 @@ func (t taskSampleApiService) Update(arguments types.TaskSampleUpdateArguments) 
 }
 
 func (t taskSampleApiService) Delete(taskSampleSid string) errors.HttpError {
-	panic("implement me")
+	requestUrl := t.config.BaseApiUrl + "/" + taskSampleSid
+	req, err := http.NewRequest("DELETE", requestUrl, nil)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	req.SetBasicAuth(t.config.TwilioApiKeySid, t.config.TwilioApiKeySecret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := t.config.Client.Do(req)
+	if err != nil {
+		return errors.NewHttpError(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusUnauthorized {
+		return errors.NewHttpErrorUnauthorized()
+	}
+
+	if res.StatusCode == http.StatusNotFound {
+		return errors.NewHttpErrorNotFound()
+	}
+
+	return nil
 }
